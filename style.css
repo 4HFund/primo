@@ -150,3 +150,13 @@ html{scroll-padding-top:24px}img{max-width:100%}a:focus-visible,button:focus-vis
 
 /* Transparent Primo logo: preserve full artwork without white boxes */
 .brand-logo{width:190px;height:72px;object-fit:contain;object-position:left center}.footer-logo{width:245px;height:auto;max-width:100%;background:transparent;padding:0;border-radius:0}.footer-brand{gap:12px}@media(max-width:700px){.brand-logo{width:139px;height:57px}.footer-logo{width:205px}.header{min-width:0}}
+
+/* Footer contrast and logo cache correction */
+footer{background:#f7f3ea!important;color:#102542!important;border-top:1px solid #d8c6a6!important}
+.footer-brand p{color:#766345!important;margin:0}
+.footer-right a{color:#102542!important;font-weight:600}
+.footer-right a:hover{color:#9a7335!important}
+.footer-right span{color:#5c6771!important}
+.footer-logo{display:block;background:transparent!important;padding:0!important;border:0!important;box-shadow:none!important;width:245px}
+.brand-logo{display:block;background:transparent!important}
+@media(max-width:700px){footer{padding:48px 24px 35px!important;gap:30px!important}.footer-logo{width:min(245px,78vw)}.footer-right{gap:18px 22px}.footer-brand p{margin-top:4px}}

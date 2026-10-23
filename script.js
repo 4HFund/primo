@@ -1,4 +1,5 @@
-// Product catalog and WhatsApp ordering.\nconst products=[
+// Product catalog and WhatsApp ordering.
+const products=[
 {id:'satin-bonnet',name:'Satin Bonnet · Black & Pink',type:'bonnets',description:'A soft satin essential for your hair-care routine.',price:350,label:'Everyday favorite',image:'assets/products/bonnet-colors.jpg'},
 {id:'two-in-one',name:'Satin Bonnet Collection',type:'bonnets',description:'A colorful assortment of satin bonnets; ask about available shades.',price:350,label:'Two looks',image:'assets/products/bonnet-two-in-one.jpg'},
 {id:'wrap-bonnet',name:'Satin Wrap Bonnet',type:'bonnets',description:'A satin wrap bonnet for everyday hair protection.',price:450,label:'Signature piece',image:'assets/products/bonnet-wrap.jpg'},

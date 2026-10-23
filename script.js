@@ -1,12 +1,12 @@
-// Product imagery reviewed against the supplied photography.\nconst products=[
+// Product catalog and WhatsApp ordering.\nconst products=[
 {id:'satin-bonnet',name:'Satin Bonnet · Black & Pink',type:'bonnets',description:'A soft satin essential for your hair-care routine.',price:350,label:'Everyday favorite',image:'assets/products/bonnet-colors.jpg'},
 {id:'two-in-one',name:'Satin Bonnet Collection',type:'bonnets',description:'A colorful assortment of satin bonnets; ask about available shades.',price:350,label:'Two looks',image:'assets/products/bonnet-two-in-one.jpg'},
-{id:'wrap-bonnet',name:'Gold Satin Wrap Bonnet',type:'bonnets',description:'A lustrous gold satin wrap with an elegant bow detail.',price:450,label:'Signature piece',image:'assets/products/tote-orange.jpg'},
-{id:'lappa-wrap',name:'African Print Bonnet',type:'bonnets',description:'A bold patterned wrap bonnet for everyday style.',price:350,label:'Bold & beautiful',image:'assets/products/tote-pink.jpg'},
-{id:'print-tote',name:'Pink Pattern Tote Bag',type:'bags',description:'A vivid patterned tote for everyday carrying.',price:650,label:'Made to carry',image:'assets/products/tote-reversible.jpg'},
-{id:'everyday-tote',name:'Colorful Pattern Tote Bag',type:'bags',description:'A statement tote with bright African-inspired print.',price:650,label:'Versatile',image:'assets/products/tote-blue.jpg'},
+{id:'wrap-bonnet',name:'Satin Wrap Bonnet',type:'bonnets',description:'A satin wrap bonnet for everyday hair protection.',price:450,label:'Signature piece',image:'assets/products/bonnet-wrap.jpg'},
+{id:'lappa-wrap',name:'Lappa Wrap Bonnet',type:'bonnets',description:'A bold patterned wrap bonnet for everyday style.',price:350,label:'Bold & beautiful',image:'assets/products/bonnet-lappa.jpg'},
+{id:'print-tote',name:'Statement Tote Bag',type:'bags',description:'A vivid patterned tote for everyday carrying.',price:650,label:'Made to carry',image:'assets/products/tote-reversible.jpg'},
+{id:'everyday-tote',name:'Everyday Tote Bag',type:'bags',description:'A statement tote with bright African-inspired print.',price:650,label:'Versatile',image:'assets/products/tote-blue.jpg'},
 {id:'apron-bonnet',name:'Apron + Bonnet Set',type:'sets',description:'A coordinated everyday apron and bonnet set.',price:950,label:'Matching set',image:'assets/products/set-apron.jpg'},
-{id:'satin-set',name:'African Print Apron + Bonnet',type:'sets',description:'A coordinated African-print apron and bonnet set.',price:1000,label:'Matching set',image:'assets/products/set-satin.jpg'}
+{id:'satin-set',name:'Satin Apron + Bonnet',type:'sets',description:'A matching satin apron and bonnet set.',price:1000,label:'Matching set',image:'assets/products/set-satin.jpg'}
 ];
 const grid=document.getElementById('products');
 const format=(n)=>'LRD '+n.toLocaleString('en-US');

@@ -160,3 +160,41 @@ footer{background:#f7f3ea!important;color:#102542!important;border-top:1px solid
 .footer-logo{display:block;background:transparent!important;padding:0!important;border:0!important;box-shadow:none!important;width:245px}
 .brand-logo{display:block;background:transparent!important}
 @media(max-width:700px){footer{padding:48px 24px 35px!important;gap:30px!important}.footer-logo{width:min(245px,78vw)}.footer-right{gap:18px 22px}.footer-brand p{margin-top:4px}}
+
+/* Final mobile usability and responsive launch refinements */
+html{scroll-padding-top:20px}body{overflow-x:clip}
+img{max-width:100%}.header{min-width:0}.wordmark{flex:0 1 auto;min-width:0}
+.header nav a,.footer-right a{min-height:44px;display:inline-flex;align-items:center}
+.contact-pill{min-height:44px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.menu-button{width:44px;height:44px;align-items:center;justify-content:center}
+.filter{min-height:44px;flex:0 0 auto}
+.product-visual:after{display:none}
+.product-card{min-width:0}.product-info{min-width:0}.product-bottom{margin-top:auto}
+.product-bottom a{min-height:44px;min-width:72px;display:inline-flex;justify-content:center;align-items:center}
+.product-visual img{display:block;object-fit:contain}
+.footer-logo,.brand-logo{object-fit:contain}
+.cta h2,.feature h2,.section h2,.hero h1{overflow-wrap:normal}
+.contact-details a{min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:700px){
+.header{padding-inline:16px;gap:8px;height:72px}
+.header-actions{gap:4px}.contact-pill{padding:11px 13px;font-size:11px}
+.brand-logo{width:clamp(112px,31vw,145px);height:56px}
+.hero-copy{padding:54px 22px 45px}.hero h1{font-size:clamp(42px,10.7vw,64px);line-height:1.09;letter-spacing:-.045em}
+.hero-art{height:320px;min-height:320px}.hero-art>img{width:100%;height:100%;object-fit:contain}
+.section{padding:64px 17px}.section-heading{margin-bottom:28px}
+.filters{display:flex;max-width:100%;width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;padding:5px 2px 9px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product-info h3{font-size:15px;line-height:1.25;overflow-wrap:break-word}
+.product-info p{font-size:11px;line-height:1.5}
+.product-bottom{align-items:flex-start;gap:6px}.product-bottom strong{font-size:12px;white-space:nowrap}
+.product-bottom a{font-size:11px;min-width:65px}
+.product-badge{font-size:9px;letter-spacing:0;max-width:90%;overflow-wrap:break-word}
+.feature-content{padding:58px 23px}
+.cta{padding:65px 23px}.cta h2{font-size:clamp(39px,10vw,58px);line-height:1.15}
+.contact-details{margin-top:36px;gap:4px;flex-direction:column;align-items:flex-start;font-size:13px}
+footer{flex-direction:column;padding:43px 22px 32px;gap:28px}
+.footer-right{justify-content:flex-start;gap:8px 20px}
+.footer-right span{text-align:left;font-size:11px}
+}
+@media(max-width:365px){.header{padding-inline:11px}.brand-logo{width:105px}.contact-pill{padding:10px;font-size:10px}.hero h1{font-size:41px}.products{gap:9px}.product-info{padding:10px 8px}.product-bottom{flex-direction:column;align-items:stretch}.product-bottom a{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

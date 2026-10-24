@@ -261,3 +261,8 @@ body{padding-bottom:70px}.mobile-dock{display:grid;grid-template-columns:1fr 1fr
 .hero-copy{padding-top:38px;padding-bottom:34px}.hero h1{font-size:clamp(40px,10vw,55px)}.hero-art{height:270px;min-height:270px}
 }
 @media(prefers-reduced-motion:reduce){.product-preview img{transition:none}}
+
+/* Direct product discovery links */
+.product-share-link{display:inline-block;align-self:flex-start;font-size:11px;color:#8d6937;text-decoration:underline;text-underline-offset:3px;margin-bottom:4px}
+.detail-share{display:block;text-align:center;color:#916c38;font-size:12px;text-decoration:underline;text-underline-offset:4px;margin-top:12px}
+@media(max-width:700px){.product-share-link{font-size:10px;margin-bottom:2px}}

@@ -24,26 +24,32 @@ const grid = document.getElementById('products');
 const format = n => 'L$' + n.toLocaleString('en-US');
 const lrdPerUsd = 171.4675; // Indicative selling rate, October 23, 2026
 const usdEstimate = n => '≈ US$' + (n / lrdPerUsd).toFixed(2);
+let activeCategory='all';
 const categoryName = {bonnets:'Hair essentials',bags:'Everyday carry',sets:'Matching sets',accessories:'Hair accessories'};
 function renderProducts(category = 'all') {
   if (!grid) return;
-  const shown = products.filter(p => category === 'all' || p.type === category || (category === 'bonnets' && p.type === 'accessories'));
+  activeCategory=category;
+  const term=(document.getElementById('product-search')?.value||'').trim().toLowerCase();
+  const sort=document.getElementById('product-sort')?.value||'featured';
+  const shown = products.filter(p => (category === 'all' || p.type === category || (category === 'bonnets' && p.type === 'accessories')) && (p.name+' '+p.description+' '+categoryName[p.type]).toLowerCase().includes(term));
+  if(sort==='low')shown.sort((a,b)=>a.price-b.price);else if(sort==='high')shown.sort((a,b)=>b.price-a.price);else if(sort==='name')shown.sort((a,b)=>a.name.localeCompare(b.name));
+  const count=document.getElementById('result-count');if(count)count.textContent=shown.length+' '+(shown.length===1?'piece':'pieces')+' to discover';
   grid.innerHTML = shown.map(p => {
     const extra = p.id === 'custom-name-bonnet' ? ' I would like to add a name.' : p.id === 'custom-photo-bonnet' ? ' I would like to add a name and photo.' : '';
     const message = 'Hello Primo Collection! I am interested in the ' + p.name + ' (' + format(p.price) + '). Could you confirm availability, colors, and ordering details?' + extra;
     const link = 'https://wa.me/231888238339?text=' + encodeURIComponent(message);
     return `<article class="product-card">
-      <div class="product-visual">
+      <button class="product-visual product-preview" type="button" data-product="${p.id}" aria-label="View details for ${p.name}">
         <img loading="lazy" src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <span class="product-initial" style="display:none">PRIMO</span>
         <span class="product-badge">${p.label}</span>
-      </div>
+      </button>
       <div class="product-info">
         <div class="product-type">${categoryName[p.type]}</div>
-        <h3>${p.name}</h3><p>${p.description}</p>
+        <h3><button class="product-title-button" type="button" data-product="${p.id}">${p.name}</button></h3><p>${p.description}</p>
         <div class="product-bottom">
           <div class="dual-price"><strong>${format(p.price)}</strong><span class="usd-estimate">${usdEstimate(p.price)}</span></div>
-          <a href="${link}" target="_blank" rel="noopener" aria-label="Order ${p.name} on WhatsApp">Order</a>
+          <button class="add-bag" type="button" data-add="${p.id}" aria-label="Add ${p.name} to shopping bag">Add +</button>
         </div>
       </div>
     </article>`;
@@ -63,3 +69,42 @@ if (menu && nav) {
 }
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
+
+const basket=new Map();
+const getProduct=id=>products.find(p=>p.id===id);
+const wa=text=>'https://wa.me/231888238339?text='+encodeURIComponent(text);
+function updateBag(){
+ const count=[...basket.values()].reduce((a,b)=>a+b,0);
+ document.getElementById('bag-count').textContent=count;
+ const list=document.getElementById('bag-items');
+ list.innerHTML=[...basket].map(([id,qty])=>{const p=getProduct(id);return p?`<div class="bag-line"><img src="${p.image}" alt=""><div><strong>${p.name}</strong><small>${format(p.price)} each</small><div class="qty"><button data-qty="${id}" data-delta="-1" aria-label="Remove one ${p.name}">−</button><span>${qty}</span><button data-qty="${id}" data-delta="1" aria-label="Add one ${p.name}">+</button></div></div></div>`:''}).join('')||'<p>Your bag is empty. Explore the collection and add a favorite.</p>';
+ const total=[...basket].reduce((n,[id,qty])=>n+getProduct(id).price*qty,0);
+ document.getElementById('bag-total').textContent=count?'Estimated items total: '+format(total)+' ('+usdEstimate(total)+') · Shipping not included':'';
+ const order=[...basket].map(([id,qty])=>{const p=getProduct(id);return qty+' × '+p.name+' — '+format(qty*p.price)}).join('\n');
+ const checkout=document.getElementById('bag-checkout');
+ checkout.href=wa('Hello Primo Collection! I would like to order:\n'+order+'\nEstimated items total: '+format(total)+'\nPlease confirm colors, availability, payment and shipping or pickup.');
+ checkout.style.display=count?'inline-flex':'none';
+}
+function addToBag(id){basket.set(id,(basket.get(id)||0)+1);updateBag();const b=document.getElementById('bag-open');b.classList.add('bag-bump');setTimeout(()=>b.classList.remove('bag-bump'),350)}
+function openProduct(id){
+ const p=getProduct(id);if(!p)return;
+ const extra=p.id==='pink-bow-bonnet'?'<p class="sample-note">Photo shows optional custom lettering. Personalization is priced separately.</p>':'';
+ document.getElementById('product-detail').innerHTML=`<div class="detail-grid"><img src="${p.image}" alt="${p.name}" class="detail-image"><div class="detail-copy"><div class="product-type">${categoryName[p.type]}</div><h2>${p.name}</h2><div class="detail-price">${format(p.price)} <span>${usdEstimate(p.price)}</span></div><p>${p.description}</p>${extra}<p class="detail-note">Handmade in Monrovia. Colors, personalization and availability are confirmed directly with Primo Collection. Delivery and shipping costs are quoted separately.</p><button class="detail-add" data-add="${p.id}">Add to bag</button><a class="detail-wa" href="${wa('Hello Primo Collection! I am interested in '+p.name+' ('+format(p.price)+'). Please share available options and ordering details.')}" target="_blank" rel="noopener">Ask about this piece on WhatsApp</a></div></div>`;
+ document.getElementById('product-dialog').showModal();
+ history.replaceState(null,'','#product='+encodeURIComponent(id));
+}
+document.getElementById('product-search')?.addEventListener('input',()=>renderProducts(activeCategory));
+document.getElementById('product-sort')?.addEventListener('change',()=>renderProducts(activeCategory));
+document.addEventListener('click',e=>{
+ const preview=e.target.closest('[data-product]');if(preview){openProduct(preview.dataset.product);return}
+ const add=e.target.closest('[data-add]');if(add){addToBag(add.dataset.add);return}
+ const qty=e.target.closest('[data-qty]');if(qty){const id=qty.dataset.qty;const n=(basket.get(id)||0)+Number(qty.dataset.delta);if(n<=0)basket.delete(id);else basket.set(id,n);updateBag()}
+});
+document.getElementById('bag-open')?.addEventListener('click',()=>{updateBag();document.getElementById('bag-dialog').showModal()});
+document.getElementById('bag-close')?.addEventListener('click',()=>document.getElementById('bag-dialog').close());
+document.getElementById('product-close')?.addEventListener('click',()=>document.getElementById('product-dialog').close());
+for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+document.getElementById('product-dialog')?.addEventListener('close',()=>{if(location.hash.startsWith('#product='))history.replaceState(null,'','#shop')});
+const linked=decodeURIComponent(location.hash.replace('#product=',''));
+if(location.hash.startsWith('#product=')&&getProduct(linked))openProduct(linked);
+updateBag();

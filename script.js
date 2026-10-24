@@ -3,7 +3,6 @@ const products=[
 {id:'satin-bonnet',name:'Satin Bonnet · Black & Pink',type:'bonnets',description:'A soft satin essential for your hair-care routine.',price:350,label:'Everyday favorite',image:'assets/products/bonnet-colors.jpg'},
 {id:'two-in-one',name:'2-in-1 Satin Bonnet',type:'bonnets',description:'A colorful assortment of reversible satin bonnets; ask about available shades.',price:350,label:'Color options',image:'assets/products/bonnet-two-in-one.jpg'},
 {id:'print-tote',name:'Statement Tote Bag',type:'bags',description:'A vivid patterned tote for everyday carrying.',price:650,label:'Made to carry',image:'assets/products/tote-reversible.jpg'},
-{id:'everyday-tote',name:'Pink & Navy Wrap Bonnet',type:'bonnets',description:'A pink-and-navy patterned wrap bonnet with a gathered front detail.',price:350,label:'Versatile',image:'assets/products/bonnet-wrap.jpg'},
 {id:'black-panel-tote',name:'Black & African-Print Tote',type:'bags',description:'A black tote bag with bold African-print detailing, shown from both sides.',price:650,label:'Everyday style',image:'assets/products/tote-pink.jpg'},
 {id:'apron-bonnet',name:'Apron + Bonnet Set',type:'sets',description:'A coordinated everyday apron and bonnet set.',price:950,label:'Matching set',image:'assets/products/set-apron.jpg'},
 {id:'satin-set',name:'Printed Apron + Bonnet Set',type:'sets',description:'A matching printed apron and bonnet set.',price:1000,label:'Matching set',image:'assets/products/set-satin.jpg'}

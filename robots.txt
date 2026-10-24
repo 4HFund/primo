@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://primoliberia.com/sitemap.xml

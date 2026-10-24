@@ -8,7 +8,7 @@ const products=[
 {id:'satin-set',name:'Printed Apron + Bonnet Set',type:'sets',description:'A matching printed apron and bonnet set.',price:1000,label:'Matching set',image:'assets/products/set-satin.jpg'}
 ,
 {id:"scrunchies",name:"Satin Scrunchies",type:"accessories",description:"Colorful satin scrunchies in a variety of shades.",price:150,label:"Everyday accessory",image:'assets/products/scrunchies.jpg'},
-{id:"african-flower-tote",name:"African-Print Flower Tote",type:"bags",description:"Black tote with vibrant African-print panel, handles and flower detail.",price:650,label:"Handmade tote",image:'assets/products/tote-orange.jpg'},
+{id:"african-flower-tote",name:"African-Print Flower Tote",type:"bags",description:"Black tote with vibrant African-print panel, handles and flower detail.",price:650,label:"Handmade tote",image:'assets/products/african-flower-tote.jpg'},
 {id:"bow-bonnet",name:"Satin Bow Bonnet",type:"bonnets",description:"Elegant satin bonnet with an oversized bow; ask about available colors.",price:450,label:"Bow style",image:'assets/products/bow-bonnet.jpg'},
 {id:"african-pocket-tote",name:"African-Print Pocket Tote",type:"bags",description:"Black tote with a colorful African-print side panel, pocket and handles.",price:650,label:"Handmade tote",image:'assets/products/african-pocket-tote.jpg'},
 {id:"classic-bonnet-assortment",name:"Classic Satin Bonnet",type:"bonnets",description:"Smooth satin bonnet available in vibrant colors.",price:450,label:"Color options",image:'assets/products/classic-bonnet-assortment.jpg'},

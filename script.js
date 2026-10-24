@@ -46,7 +46,7 @@ function renderProducts(category = 'all') {
       </button>
       <div class="product-info">
         <div class="product-type">${categoryName[p.type]}</div>
-        <h3><button class="product-title-button" type="button" data-product="${p.id}">${p.name}</button></h3><p>${p.description}</p>
+        <h3><button class="product-title-button" type="button" data-product="${p.id}">${p.name}</button></h3><a class="product-share-link" href="products/${p.id}.html" aria-label="View and share ${p.name} product page">View & share</a><p>${p.description}</p>
         <div class="product-bottom">
           <div class="dual-price"><strong>${format(p.price)}</strong><span class="usd-estimate">${usdEstimate(p.price)}</span></div>
           <button class="add-bag" type="button" data-add="${p.id}" aria-label="Add ${p.name} to shopping bag">Add +</button>
@@ -85,11 +85,12 @@ function updateBag(){
  checkout.href=wa('Hello Primo Collection! I would like to order:\n'+order+'\nEstimated items total: '+format(total)+'\nPlease confirm colors, availability, payment and shipping or pickup.');
  checkout.style.display=count?'inline-flex':'none';
 }
-function addToBag(id){basket.set(id,(basket.get(id)||0)+1);updateBag();const b=document.getElementById('bag-open');b.classList.add('bag-bump');setTimeout(()=>b.classList.remove('bag-bump'),350)}
+function addToBag(id){trackShop('add_to_bag',{product_id:id});basket.set(id,(basket.get(id)||0)+1);updateBag();const b=document.getElementById('bag-open');b.classList.add('bag-bump');setTimeout(()=>b.classList.remove('bag-bump'),350)}
 function openProduct(id){
+ trackShop('view_product',{product_id:id});
  const p=getProduct(id);if(!p)return;
  const extra=p.id==='pink-bow-bonnet'?'<p class="sample-note">Photo shows optional custom lettering. Personalization is priced separately.</p>':'';
- document.getElementById('product-detail').innerHTML=`<div class="detail-grid"><img src="${p.image}" alt="${p.name}" class="detail-image"><div class="detail-copy"><div class="product-type">${categoryName[p.type]}</div><h2>${p.name}</h2><div class="detail-price">${format(p.price)} <span>${usdEstimate(p.price)}</span></div><p>${p.description}</p>${extra}<p class="detail-note">Handmade in Monrovia. Colors, personalization and availability are confirmed directly with Primo Collection. Delivery and shipping costs are quoted separately.</p><button class="detail-add" data-add="${p.id}">Add to bag</button><a class="detail-wa" href="${wa('Hello Primo Collection! I am interested in '+p.name+' ('+format(p.price)+'). Please share available options and ordering details.')}" target="_blank" rel="noopener">Ask about this piece on WhatsApp</a></div></div>`;
+ document.getElementById('product-detail').innerHTML=`<div class="detail-grid"><img src="${p.image}" alt="${p.name}" class="detail-image"><div class="detail-copy"><div class="product-type">${categoryName[p.type]}</div><h2>${p.name}</h2><div class="detail-price">${format(p.price)} <span>${usdEstimate(p.price)}</span></div><p>${p.description}</p>${extra}<p class="detail-note">Handmade in Monrovia. Colors, personalization and availability are confirmed directly with Primo Collection. Delivery and shipping costs are quoted separately.</p><button class="detail-add" data-add="${p.id}">Add to bag</button><a class="detail-share" href="products/${p.id}.html">Open shareable product page</a><a class="detail-wa" href="${wa('Hello Primo Collection! I am interested in '+p.name+' ('+format(p.price)+'). Please share available options and ordering details.')}" target="_blank" rel="noopener">Ask about this piece on WhatsApp</a></div></div>`;
  document.getElementById('product-dialog').showModal();
  history.replaceState(null,'','#product='+encodeURIComponent(id));
 }
@@ -108,3 +109,8 @@ document.getElementById('product-dialog')?.addEventListener('close',()=>{if(loca
 const linked=decodeURIComponent(location.hash.replace('#product=',''));
 if(location.hash.startsWith('#product=')&&getProduct(linked))openProduct(linked);
 updateBag();
+
+// Analytics-ready event hooks: events are sent only if the owner configures analytics.
+function trackShop(name,details={}){if(typeof window.gtag==='function')window.gtag('event',name,details);}
+document.getElementById('bag-checkout')?.addEventListener('click',()=>trackShop('begin_whatsapp_order',{item_count:[...basket.values()].reduce((a,b)=>a+b,0)}));
+document.addEventListener('click',e=>{const a=e.target.closest('a[href*="wa.me/"]');if(a)trackShop('whatsapp_click',{location:a.closest('.product-dialog')?'product_detail':'page'});});
